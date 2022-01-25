@@ -89,6 +89,20 @@ namespace AddressBookSystem1
                     Console.WriteLine("No Contact With this Name!");
             }
         }
+        //Method to Delete a Person
+        public void DeleteContact(string dName)
+        {
+            foreach (Contacts ct in this.contactList)
+            {
+                if (ct.firstName.Equals(dName))
+                {
+                    this.contactList.Remove(ct);
+                    Console.WriteLine("Contact Deleted!");
+                    break;
+                }
+            }
+        }
     }
+}
 }
 
