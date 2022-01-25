@@ -15,6 +15,7 @@ namespace AddressBookSystem1
 
             CreateAddressBook addressBook = new CreateAddressBook();
             addressBook.ReadInput();
+            Console.WriteLine();
             Console.ReadLine();
         }
     }
