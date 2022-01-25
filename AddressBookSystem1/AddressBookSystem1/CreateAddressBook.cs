@@ -74,5 +74,16 @@ namespace AddressBookSystem1
             string email = Console.ReadLine();
             addressclass.AddContactDetails(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
         }
-}
+        //Method to Add Multiple Contact
+        public void AddMultiplePerson()
+        {
+            Console.WriteLine("How many contact,you want to Add");
+            int cNumber = int.Parse(Console.ReadLine());
+            for (int i = 1; i <= cNumber; i++)
+            {
+                CreateAddressBook.AddDetails(address2);
+            }
+            Console.WriteLine("All Contacts Added successfully! \n");
+        }
+    }
     }
