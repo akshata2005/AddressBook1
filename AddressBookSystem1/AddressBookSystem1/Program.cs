@@ -13,7 +13,7 @@ namespace AddressBookSystem1
             Console.WriteLine("Welcome to AddressBook");
 
 
-            CreateAddressBook addressBook = new CreateAddressBook();
+            AddressBookDictionary  addressBook = new AddressBookDictionary();
             addressBook.ReadInput();
             Console.WriteLine();
             Console.ReadLine();
