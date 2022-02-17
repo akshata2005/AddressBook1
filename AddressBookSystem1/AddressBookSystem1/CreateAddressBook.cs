@@ -10,6 +10,8 @@ namespace AddressBookSystem1
     {
         static AddressBookDictionary addressBookMain = new AddressBookDictionary();
         static Dictionary<string, AddressBookDictionary> addressBook = new Dictionary<string, AddressBookDictionary>();
+        static Dictionary<string, List<Contacts>> cityDictionary = new Dictionary<string, List<Contacts>>();
+        static Dictionary<string, List<Contacts>> stateDictionary = new Dictionary<string, List<Contacts>>();
         //created List of class Type.
         public void ReadInput()
         {
@@ -26,6 +28,10 @@ namespace AddressBookSystem1
                 Console.WriteLine("5.Delete Person");
                 Console.WriteLine("6.Add Multiple Address Book");
                 Console.WriteLine("7.Delete Any Address Book");
+                Console.WriteLine("8.Display person by city or state name");
+                Console.WriteLine("9.View person by city or state");
+                Console.WriteLine("10.Count person by city or state");
+                Console.WriteLine("11.Sort the Address book");
                 Console.WriteLine("0.Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
@@ -34,7 +40,7 @@ namespace AddressBookSystem1
                         CreateAddressBook.AddBook();
                         break;
                     case 2:
-                        AddDetails(CreateAddressBook.BookName(addressBook));
+                        AddDetails(CreateAddressBook.BookName(addressBook), cityDictionary, stateDictionary);
                         break;
                     case 3:
                         addressBookMain = CreateAddressBook.BookName(addressBook);
@@ -60,6 +66,26 @@ namespace AddressBookSystem1
                         string addressBookName = Console.ReadLine();
                         addressBook.Remove(addressBookName);
                         break;
+                    case 8:
+                        AddressBookDictionary.DisplayPerson(addressBook);
+                        break;
+                    case 9:
+                        AddressBookDictionary.PrintList(cityDictionary);
+                        AddressBookDictionary.PrintList(stateDictionary);
+                        break;
+                    case 10:
+                        Console.WriteLine("City");
+                        AddressBookDictionary.CountPerson(cityDictionary);
+                        Console.WriteLine("State");
+                        AddressBookDictionary.CountPerson(stateDictionary);
+                        break;
+                    case 11:
+                        Console.WriteLine("AddressBook after sorting");
+                        foreach (var data in addressBook.OrderBy(x => x.Key))
+                        {
+                            Console.WriteLine("{0}", data.Key);
+                        }
+                        break;
                     case 0:
                         CONTINUE = false;
                         break;
@@ -79,7 +105,7 @@ namespace AddressBookSystem1
         /// This method is used to add a new contact.
         /// </summary>
         /// <param name="addressBookMain"></param>
-        public static void AddDetails(AddressBookDictionary addressMain)
+        public static void AddDetails(AddressBookDictionary addressMain, Dictionary<string, List<Contacts>> cityDictionary, Dictionary<string, List<Contacts>> stateDictionary)
         {
             Console.WriteLine("Enter first Name");
             string firstName = Console.ReadLine();
@@ -98,7 +124,7 @@ namespace AddressBookSystem1
             Console.WriteLine("Enter Email");
             string email = Console.ReadLine();
 
-            addressMain.AddContactdetails(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
+            addressMain.AddContactdetails(firstName, lastName, address, city, state, zipCode, phoneNumber, email, stateDictionary, cityDictionary);
         }
         //Method to Add Multiple Contact
         public void AddMultipleAddressBook()

@@ -17,14 +17,39 @@ namespace AddressBookSystem1
         {
             contactlist = new List<Contacts>();
         }
-        public void AddContactdetails(string firstName, string lastName, string address, string city, string state, long zipCode, long phoneNumber, string email)
+        public void AddContactdetails(string firstName, string lastName, string address, string city, string state, long zipCode, long phoneNumber, string email,Dictionary<string, List<Contacts>> stateDictionary, Dictionary<string, List<Contacts>> cityDictionary)
         {
+            // finding the data that already has the same first name
             Contacts contact = this.contactlist.Find(x => x.firstName.Equals(firstName));
             // if same name is not present then add into address book
             if (contact == null)
             {
                 Contacts contactDetails = new Contacts(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
                 this.contactlist.Add(contactDetails);
+                if (!cityDictionary.ContainsKey(city))
+                {
+
+                    cityList = new List<Contacts>();
+                    cityList.Add(contactDetails);
+                    cityDictionary.Add(city, cityList);
+                }
+                else
+                {
+                    List<Contacts> cities = cityDictionary[city];
+                    cities.Add(contactDetails);
+                }
+                if (!stateDictionary.ContainsKey(state))
+                {
+
+                    stateList = new List<Contacts>();
+                    stateList.Add(contactDetails);
+                    stateDictionary.Add(state, stateList);
+                }
+                else
+                {
+                    List<Contacts> states = stateDictionary[state];
+                    states.Add(contactDetails);
+                }
             }
             // print person already exists in the address book
             else
