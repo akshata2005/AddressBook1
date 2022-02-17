@@ -114,6 +114,36 @@ namespace AddressBookSystem1
                 }
             }
         }
-        
+        public static void DisplayPerson(Dictionary<string, AddressBookDictionary> addressDictionary)
+        {
+            List<Contacts> list = null;
+            Console.WriteLine("Enter City or State name");
+            string name = Console.ReadLine();
+            foreach (var data in addressDictionary)
+            {
+                AddressBookDictionary address = data.Value;
+                list = address.contactlist.FindAll(x => x.city.Equals(name) || x.state.Equals(name));
+                if (list.Count > 0)
+                {
+                    DisplayList(list);
+                }
+            }
+            if (list == null)
+            {
+                Console.WriteLine("No person present in the address book with same city or state name");
+            }
+        }
+        /// <summary>
+        /// display the data 
+        /// </summary>
+        /// <param name="list"></param>
+        public static void DisplayList(List<Contacts> list)
+        {
+            foreach (var data in list)
+            {
+                data.Display();
+
+            }
+        }
     }
 }
