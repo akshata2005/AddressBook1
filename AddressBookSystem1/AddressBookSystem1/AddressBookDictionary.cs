@@ -10,6 +10,8 @@ namespace AddressBookSystem1
     public class AddressBookDictionary
     {
         private List<Contacts> contactlist;
+        private List<Contacts> cityList;
+        private List<Contacts> stateList;
 
         public AddressBookDictionary()
         {
@@ -145,5 +147,24 @@ namespace AddressBookSystem1
 
             }
         }
+        /// <summary>
+        /// display the person details by city or state
+        /// </summary>
+        /// <param name="dictinary"></param>
+        public static void PrintList(Dictionary<string, List<Contacts>> dictionary)
+        {
+            foreach (var data in dictionary)
+            {
+                Console.WriteLine("Details of person in {0}", data.Key);
+                foreach (var person in data.Value)
+                {
+                    Console.WriteLine("{0} {1} {2} {3} {4} {5} {6}", person.firstName, person.lastName, person.address,
+                                                                   person.city, person.state, person.zipCode, person.phoneNumber, person.email);
+                }
+                Console.WriteLine("-----------------------------");
+            }
+
+        }
     }
+
 }
