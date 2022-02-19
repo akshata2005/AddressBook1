@@ -9,6 +9,7 @@ namespace AddressBookSystem1
     public class CreateAddressBook
     {
         readonly string filePath = @"E:\AddressBookS\AddressBook1\AddressBookSystem1\AddressBookSystem1\FileIo\personsdata.txt";
+        readonly string csvFilePath = @"E:\AddressBookS\AddressBook1\AddressBookSystem1\AddressBookSystem1\FileIo\ContactList.csv";
         static AddressBookDictionary addressBookMain = new AddressBookDictionary();
         static Dictionary<string, AddressBookDictionary> addressBook = new Dictionary<string, AddressBookDictionary>();
         static Dictionary<string, List<Contacts>> cityDictionary = new Dictionary<string, List<Contacts>>();
@@ -34,6 +35,7 @@ namespace AddressBookSystem1
                 Console.WriteLine("10.Count person by city or state");
                 Console.WriteLine("11.Sort the Address book");
                 Console.WriteLine("12.Write and Read the Person detail using File IO");
+                Console.WriteLine("13.Write and Read the Person detail using using CSV file");
                 Console.WriteLine("0.Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
@@ -91,6 +93,10 @@ namespace AddressBookSystem1
                     case 12:
                         AddressBookFileIo.WriteInTextFile(addressBook, filePath);
                         AddressBookFileIo.ReadFromTextFile(filePath);
+                        break;
+                    case 13:
+                        CSVHandler.WriteIntoCSVFile(addressBook, csvFilePath);
+                        CSVHandler.ReadFromCSVFile(csvFilePath);
                         break;
                     case 0:
                         CONTINUE = false;
