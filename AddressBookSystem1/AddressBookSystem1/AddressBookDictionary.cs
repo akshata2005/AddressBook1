@@ -17,7 +17,7 @@ namespace AddressBookSystem1
         {
             contactlist = new List<Contacts>();
         }
-        public void AddContactdetails(string firstName, string lastName, string address, string city, string state, long zipCode, long phoneNumber, string email,Dictionary<string, List<Contacts>> stateDictionary, Dictionary<string, List<Contacts>> cityDictionary)
+        public void AddContactdetails(string firstName, string lastName, string address, string city, string state, long zipCode, long phoneNumber, string email, Dictionary<string, List<Contacts>> stateDictionary, Dictionary<string, List<Contacts>> cityDictionary)
         {
             // finding the data that already has the same first name
             Contacts contact = this.contactlist.Find(x => x.firstName.Equals(firstName));
@@ -57,6 +57,7 @@ namespace AddressBookSystem1
                 Console.WriteLine("Person, {0} is already exist in the address book", firstName);
             }
         }
+
         //Display Contact
         public void DisplayContact()
         {
@@ -127,79 +128,121 @@ namespace AddressBookSystem1
                 else
                     Console.WriteLine("No Contact With this Name! \n");
             }
-        }
-        //Method to Delete a Person
-        public void DeleteContact(string dName)
-        {
-            foreach (Contacts ct in this.contactlist)
-            {
-                if (ct.firstName.Equals(dName))
-                {
-                    this.contactlist.Remove(ct);
-                    Console.WriteLine("Contact Deleted! \n");
-                    break;
-                }
-            }
-        }
-        public static void DisplayPerson(Dictionary<string, AddressBookDictionary> addressDictionary)
-        {
-            List<Contacts> list = null;
-            Console.WriteLine("Enter City or State name");
-            string name = Console.ReadLine();
-            foreach (var data in addressDictionary)
-            {
-                AddressBookDictionary address = data.Value;
-                list = address.contactlist.FindAll(x => x.city.Equals(name) || x.state.Equals(name));
-                if (list.Count > 0)
-                {
-                    DisplayList(list);
-                }
-            }
-            if (list == null)
-            {
-                Console.WriteLine("No person present in the address book with same city or state name");
-            }
-        }
-        /// <summary>
-        /// display the data 
-        /// </summary>
-        /// <param name="list"></param>
-        public static void DisplayList(List<Contacts> list)
-        {
-            foreach (var data in list)
-            {
-                data.Display();
+        } 
 
-            }
-        }
-        /// <summary>
-        /// display the person details by city or state
-        /// </summary>
-        /// <param name="dictinary"></param>
-        public static void PrintList(Dictionary<string, List<Contacts>> dictionary)
-        {
-            foreach (var data in dictionary)
+            //Method to Delete a Person
+            public void DeleteContact(string dName)
             {
-                Console.WriteLine("Details of person in {0}", data.Key);
-                foreach (var person in data.Value)
+                foreach (Contacts ct in this.contactlist)
                 {
-                    Console.WriteLine("{0} {1} {2} {3} {4} {5} {6}", person.firstName, person.lastName, person.address,
-                                                                   person.city, person.state, person.zipCode, person.phoneNumber, person.email);
+                    if (ct.firstName.Equals(dName))
+                    {
+                        this.contactlist.Remove(ct);
+                        Console.WriteLine("Contact Deleted! \n");
+                        break;
+                    }
                 }
-                Console.WriteLine("-----------------------------");
             }
-        }
-        /// <summary>
-        /// count number of person by city or state
-        /// </summary>
-        /// <param name="dictionary"></param>
-        public static void CountPerson(Dictionary<string, List<Contacts>> dictionary)
-        {
-            foreach (var person in dictionary)
+            public static void DisplayPerson(Dictionary<string, AddressBookDictionary> addressDictionary)
             {
-                Console.WriteLine("Number of person {0}:", person.Value.Count);
+                List<Contacts> list = null;
+                Console.WriteLine("Enter City or State name");
+                string name = Console.ReadLine();
+                foreach (var data in addressDictionary)
+                {
+                    AddressBookDictionary address = data.Value;
+                    list = address.contactlist.FindAll(x => x.city.Equals(name) || x.state.Equals(name));
+                    if (list.Count > 0)
+                    {
+                        DisplayList(list);
+                    }
+                }
+                if (list == null)
+                {
+                    Console.WriteLine("No person present in the address book with same city or state name");
+                }
             }
+            /// <summary>
+            /// display the data 
+            /// </summary>
+            /// <param name="list"></param>
+            public static void DisplayList(List<Contacts> list)
+            {
+                foreach (var data in list)
+                {
+                    data.Display();
+
+                }
+            }
+            /// <summary>
+            /// display the person details by city or state
+            /// </summary>
+            /// <param name="dictinary"></param>
+            public static void PrintList(Dictionary<string, List<Contacts>> dictionary)
+            {
+                foreach (var data in dictionary)
+                {
+                    Console.WriteLine("Details of person in {0}", data.Key);
+                    foreach (var person in data.Value)
+                    {
+                        Console.WriteLine("{0} {1} {2} {3} {4} {5} {6}", person.firstName, person.lastName, person.address,
+                                                                       person.city, person.state, person.zipCode, person.phoneNumber, person.email);
+                    }
+                    Console.WriteLine("-----------------------------");
+                }
+            }
+            /// <summary>
+            /// count number of person by city or state
+            /// </summary>
+            /// <param name="dictionary"></param>
+            public static void CountPerson(Dictionary<string, List<Contacts>> dictionary)
+            {
+                foreach (var person in dictionary)
+                {
+                    Console.WriteLine("Number of person {0}:", person.Value.Count);
+                }
+            }
+            /// <summary>
+            /// Sort the address Book by city, state and Zip.
+            /// </summary>
+            /// <param name="dictionary">The dictionary.</param>
+            public static void SortData(Dictionary<string, List<Contacts>> dictionary)
+            {
+                //store the result inthe list and display the result
+                List<Contacts> list = new List<Contacts>();
+                foreach (var data in dictionary)
+                {
+                    foreach (var item in data.Value)
+                    {
+                        list.Add(item);
+                    }
+                }
+                Console.WriteLine("\nDisplaying the list based on zipcode");
+                //display the sorted value based on city
+                foreach (var item in list.OrderBy(detail => detail.zipCode))
+                {
+                    item.Display();
+                }
+                Console.WriteLine("\nDisplaying the list based on state");
+                //display the sorted value based on city
+                foreach (var item in list.OrderBy(detail => detail.state))
+                {
+                    item.Display();
+                }
+                Console.WriteLine("\nDisplaying the list based on city");
+                //display the sorted value based on city
+                foreach (var item in list.OrderBy(detail => detail.city))
+                {
+                    item.Display();
+                }
+            }
+        public List<Contacts> getContacts()
+        {
+            if (contactlist.Count == 0)
+                return null;
+            else
+                return contactlist;
+        }
+
         }
     }
-
-}

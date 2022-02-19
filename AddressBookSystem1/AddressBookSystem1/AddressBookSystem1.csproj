@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AddressBookclass.cs" />
     <Compile Include="AddressBookDictionary.cs" />
+    <Compile Include="AddressBookFileIo.cs" />
     <Compile Include="Contacts.cs" />
     <Compile Include="CreateAddressBook.cs" />
     <Compile Include="Program.cs" />
@@ -52,6 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="FileIo\data.txt" />
+    <Content Include="FileIo\personsdata.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
