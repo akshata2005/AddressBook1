@@ -71,6 +71,8 @@
     <Compile Include="AddressBookclass.cs" />
     <Compile Include="AddressBookDictionary.cs" />
     <Compile Include="AddressBookFileIo.cs" />
+    <Compile Include="AddressBookRepo.cs" />
+    <Compile Include="ContactModel.cs" />
     <Compile Include="Contacts.cs" />
     <Compile Include="CreateAddressBook.cs" />
     <Compile Include="CSVHandler.cs" />
